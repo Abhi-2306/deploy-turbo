@@ -147,6 +147,10 @@ const config = {
       {
         "fromEnvVar": null,
         "value": "linux-musl-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-1.1.x"
       }
     ],
     "previewFeatures": [],
@@ -173,8 +177,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"app/generated/prisma/client\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  username String\n  password String\n  todos    Todo[]\n}\n\nmodel Todo {\n  id     String  @id @default(uuid())\n  task   String\n  done   Boolean @default(false)\n  userId String\n  user   User    @relation(fields: [userId], references: [id])\n}\n",
-  "inlineSchemaHash": "bd3247003c3ddb00e2e2b1e1e3deb82b528fe3eec29c9e7e72b7c47de132e7b4",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"app/generated/prisma/client\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\", \"debian-openssl-1.1.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String @id @default(uuid())\n  username String\n  password String\n  todos    Todo[]\n}\n\nmodel Todo {\n  id     String  @id @default(uuid())\n  task   String\n  done   Boolean @default(false)\n  userId String\n  user   User    @relation(fields: [userId], references: [id])\n}\n",
+  "inlineSchemaHash": "652b4541b957024c27db62c2263abb6cb8fefc3e8fb348e0b2543c0e6fa34922",
   "copyEngine": true
 }
 
@@ -219,6 +223,10 @@ path.join(process.cwd(), "prisma/app/generated/prisma/client/query_engine-window
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
 path.join(process.cwd(), "prisma/app/generated/prisma/client/libquery_engine-linux-musl-openssl-3.0.x.so.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-1.1.x.so.node");
+path.join(process.cwd(), "prisma/app/generated/prisma/client/libquery_engine-debian-openssl-1.1.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/app/generated/prisma/client/schema.prisma")
