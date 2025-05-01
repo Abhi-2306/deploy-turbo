@@ -12,8 +12,6 @@ COPY ./turbo.json ./turbo.json
 
 COPY ./apps/backend ./apps/backend
 
-COPY prisma ./prisma/
-
 RUN bun install
 
 RUN bun run generate:db
