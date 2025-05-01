@@ -25,3 +25,5 @@ jobs:
           file: ./docker/Dockerfile.backend
           push: true
           tags: abhi230604/todo-app-backend:${{ github.sha }}
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
