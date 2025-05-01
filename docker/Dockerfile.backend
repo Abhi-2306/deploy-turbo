@@ -1,23 +1,32 @@
-FROM oven/bun:1
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache openssl
+# Install OpenSSL and curl
+RUN apk add --no-cache openssl curl
 
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash && \
+    mv /root/.bun/bin/bun /usr/local/bin/bun && \
+    mv /root/.bun/bin/bunx /usr/local/bin/bunx
+
+# Set environment variable for runtime (Docker Compose or CI will override it)
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
+# Copy files
 COPY ./packages ./packages
 COPY ./bun.lock ./bun.lock
-
 COPY ./package.json ./package.json
 COPY ./turbo.json ./turbo.json
-
 COPY ./apps/backend ./apps/backend
 
+# Install dependencies
 RUN bun install
 
+# Generate Prisma client
 RUN bun run generate:db
-
 
 EXPOSE 8080
 
-CMD ["bun","run","start:backend"]
-
+CMD ["bun", "run", "start:backend"]
