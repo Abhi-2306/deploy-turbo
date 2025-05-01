@@ -12,6 +12,10 @@ RUN apt-get update -y && \
 ENV OPENSSL_CONF=/etc/ssl/openssl.cnf
 ENV OPENSSL_VERSION=3.0
 
+# Set Prisma environment variables
+ENV PRISMA_CLI_QUERY_ENGINE_TYPE=binary
+ENV PRISMA_CLI_BINARY_TARGETS=debian-openssl-3.0.x
+
 RUN npm install -g bun
 
 # Pass env during build
