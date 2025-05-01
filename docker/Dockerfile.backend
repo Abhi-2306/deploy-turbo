@@ -2,15 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-# Install OpenSSL and curl
+# Install dependencies: openssl, curl, and bun prerequisites
 RUN apk add --no-cache openssl curl
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash && \
+# Install Bun using sh (Alpine doesn't have bash)
+RUN curl -fsSL https://bun.sh/install | sh && \
     mv /root/.bun/bin/bun /usr/local/bin/bun && \
     mv /root/.bun/bin/bunx /usr/local/bin/bunx
 
-# Set environment variable for runtime (Docker Compose or CI will override it)
+# Pass env during build
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
 
