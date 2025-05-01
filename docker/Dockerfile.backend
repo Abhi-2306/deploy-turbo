@@ -6,9 +6,7 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache openssl curl
 
 # Install Bun using sh (Alpine doesn't have bash)
-RUN curl -fsSL https://bun.sh/install | sh && \
-    mv /root/.bun/bin/bun /usr/local/bin/bun && \
-    mv /root/.bun/bin/bunx /usr/local/bin/bunx
+RUN npm install -g bun
 
 # Pass env during build
 ARG DATABASE_URL
